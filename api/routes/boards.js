@@ -54,14 +54,15 @@ router.delete("/delete/:id", (req, res) => {
 
 // route put api/boards
 // edit board
-router.put('/api/boards/:id', (req, res, next) => {
+router.put('/:id', (req, res, next) => {
+  console.log("id:", req.params)
   const board = new Board({
     _id: req.params.id,
-    title: req.body.title,
-    description: req.body.description,
-    imageUrl: req.body.imageUrl,
-    price: req.body.price,
-    userId: req.body.userId
+    name: req.body.name,
+    boardData: req.body.boardData,
+    userID: req.body.userID,
+    background: req.body.background,
+    date: req.body.date,
   });
   Board.updateOne({_id: req.params.id}, board).then(
     () => {
