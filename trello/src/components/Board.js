@@ -4,6 +4,7 @@ import BoardNav from "./BoardNav";
 import "./board.css";
 import usePrevious from "../hooks/usePrevious";
 import { useAuth0 } from "@auth0/auth0-react";
+import PostBoard from "../handlers/PostBoard";
 
 const DUMMY_DATA = {
   lanes: [
@@ -158,18 +159,34 @@ const DUMMY_DATA = {
 
 const BoardPage = (props) => {
   const [data, setData] = useState(DUMMY_DATA);
+  const [dataIsReady, setDataIsReady] = useState(false);
   const { user, isAuthenticated, logout, isLoading } = useAuth0();
+
+  useEffect(() => {
+    const fetchBoards = async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/boards/${user.sub}`);
+        const json = await res.json();
+        console.log(json);
+        setSavedBoards(json);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchBoards();
+  }, [user]);
+  console.log("saved boards:", savedBoards);
 
   const handleDataChange = (newData) => {
     setData(newData);
-
-    // function for send updated data to server
-    // sendDataToServer
+    console.log("new data");
+    setDataIsReady(true);
   };
 
   const prevValue = usePrevious(props);
   console.log("prev val: ", prevValue);
   console.log(props.location.state.background);
+
   if (isAuthenticated)
     return (
       <>
@@ -194,9 +211,19 @@ const BoardPage = (props) => {
             style={{ background: `${"none"}` }}
           />
         </main>
+        {dataIsReady && (
+          <PostBoard
+            name={props.location.state.name}
+            background={props.location.state.background}
+            userID={props.location.state.id}
+            data={data}
+            method="PUT"
+            url={`http://localhost:5000/api/boards/${props.location.state.id}`}
+          />
+        )}
       </>
-    )
-    return (<div>loading...</div>);
+    );
+  return <div>loading...</div>;
 };
 
 export default BoardPage;
