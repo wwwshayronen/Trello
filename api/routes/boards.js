@@ -1,4 +1,5 @@
 const express = require("express");
+const { findById } = require("../../models/Boards");
 const router = express.Router();
 
 // GOAL model import
@@ -17,6 +18,14 @@ router.get("/:userID", (req, res) => {
     res.send({ message: error });
     console.log("Error with get board by id:", error);
   }
+});
+
+// router GET api/boards/:id
+// get specific board by id
+router.get("/v2/:id", (req, res) => {
+  console.log("id", req.params.id);
+  const id = req.params.id;
+  Board.find({ _id: id }).then((board) => res.json(board));
 });
 
 // route post api/boards
@@ -54,8 +63,8 @@ router.delete("/delete/:id", (req, res) => {
 
 // route put api/boards
 // edit board
-router.put('/:id', (req, res, next) => {
-  console.log("id:", req.params)
+router.put("/:id", (req, res, next) => {
+  console.log("id:", req.params);
   const board = new Board({
     _id: req.params.id,
     name: req.body.name,
@@ -64,19 +73,17 @@ router.put('/:id', (req, res, next) => {
     background: req.body.background,
     date: req.body.date,
   });
-  Board.updateOne({_id: req.params.id}, board).then(
-    () => {
+  Board.updateOne({ _id: req.params.id }, board)
+    .then(() => {
       res.status(201).json({
-        message: 'Thing updated successfully!'
+        message: "Thing updated successfully!",
       });
-    }
-  ).catch(
-    (error) => {
+    })
+    .catch((error) => {
       res.status(400).json({
-        error: error
+        error: error,
       });
-    }
-  );
+    });
 });
 
 module.exports = router;

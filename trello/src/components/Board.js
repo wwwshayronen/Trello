@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Board from "react-trello";
 import BoardNav from "./BoardNav";
 import "./board.css";
@@ -6,176 +6,30 @@ import usePrevious from "../hooks/usePrevious";
 import { useAuth0 } from "@auth0/auth0-react";
 import PostBoard from "../handlers/PostBoard";
 
-const DUMMY_DATA = {
-  lanes: [
-    {
-      id: "PLANNED",
-      title: "Planned Tasks",
-      label: "20/70",
-      style: {
-        width: 280,
-      },
-      cards: [
-        {
-          id: "Milk",
-          title: "Buy milk",
-          label: "15 mins",
-          description: "2 Gallons of milk at the Deli store",
-        },
-        {
-          id: "Plan2",
-          title: "Dispose Garbage",
-          label: "10 mins",
-          description: "Sort out recyclable and waste as needed",
-        },
-        {
-          id: "Plan3",
-          title: "Write Blog",
-          label: "30 mins",
-          description: "Can AI make memes?",
-        },
-        {
-          id: "Plan4",
-          title: "Pay Rent",
-          label: "5 mins",
-          description: "Transfer to bank account",
-        },
-      ],
-    },
-    {
-      id: "WIP",
-      title: "Work In Progress",
-      label: "10/20",
-      style: {
-        width: 280,
-      },
-      cards: [
-        {
-          id: "Wip1",
-          title: "Clean House",
-          label: "30 mins",
-          description:
-            "Soap wash and polish floor. Polish windows and doors. Scrap all broken glasses",
-        },
-      ],
-    },
-    {
-      id: "BLOCKED",
-      title: "Blocked",
-      label: "0/0",
-      style: {
-        width: 280,
-      },
-      cards: [],
-    },
-    {
-      id: "COMPLETED",
-      title: "Completed",
-      style: {
-        width: 280,
-      },
-      label: "2/5",
-      cards: [
-        {
-          id: "Completed1",
-          title: "Practice Meditation",
-          label: "15 mins",
-          description: "Use Headspace app",
-        },
-        {
-          id: "Completed2",
-          title: "Maintain Daily Journal",
-          label: "15 mins",
-          description: "Use Spreadsheet for now",
-        },
-      ],
-    },
-    {
-      id: "REPEAT",
-      title: "Repeat",
-      style: {
-        width: 280,
-      },
-      label: "1/1",
-      cards: [
-        {
-          id: "Repeat1",
-          title: "Morning Jog",
-          label: "30 mins",
-          description: "Track using fitbit",
-        },
-      ],
-    },
-    {
-      id: "ARCHIVED",
-      title: "Archived",
-      style: {
-        width: 280,
-      },
-      label: "1/1",
-      cards: [
-        {
-          id: "Archived1",
-          title: "Go Trekking",
-          label: "300 mins",
-          description: "Completed 10km on cycle",
-        },
-      ],
-    },
-    {
-      id: "ARCHIVED2",
-      title: "Archived2",
-      style: {
-        width: 280,
-      },
-      label: "1/1",
-      cards: [
-        {
-          id: "Archived2",
-          title: "Go Jogging",
-          label: "300 mins",
-          description: "Completed 10km on cycle",
-        },
-      ],
-    },
-    {
-      id: "ARCHIVED3",
-      title: "Archived3",
-      style: {
-        width: 280,
-      },
-      label: "1/1",
-      cards: [
-        {
-          id: "Archived3",
-          title: "Go Cycling",
-          label: "300 mins",
-          description: "Completed 10km on cycle",
-        },
-      ],
-    },
-  ],
-};
-
 const BoardPage = (props) => {
-  const [data, setData] = useState(DUMMY_DATA);
+  const [data, setData] = useState();
+  const [savedBoard, setSavedBoard] = useState();
   const [dataIsReady, setDataIsReady] = useState(false);
+  // const [info, setInfo] = useState()
   const { user, isAuthenticated, logout, isLoading } = useAuth0();
+
 
   useEffect(() => {
     const fetchBoards = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/boards/${user.sub}`);
+        const res = await fetch(
+          `http://localhost:5000/api/boards/v2/${props.location.state.id}`
+        );
         const json = await res.json();
         console.log(json);
-        setSavedBoards(json);
+        setSavedBoard(json);
       } catch (error) {
         console.log(error);
       }
     };
     fetchBoards();
-  }, [user]);
-  console.log("saved boards:", savedBoards);
+  }, [props]);
+  console.log("saved boards:", savedBoard);
 
   const handleDataChange = (newData) => {
     setData(newData);
@@ -187,22 +41,29 @@ const BoardPage = (props) => {
   console.log("prev val: ", prevValue);
   console.log(props.location.state.background);
 
+  const info =
+    (savedBoard && savedBoard[0].boardData[0]) || props.location.state.data[0];
+  const backgroundColor =
+    (savedBoard && savedBoard[0].background) || props.location.state.background;
+  const name = (savedBoard && savedBoard[0].name) || props.location.state.title;
+  const id = (savedBoard && savedBoard[0]._id) || props.location.state.id;
+
+  console.log(info);
+
   if (isAuthenticated)
     return (
       <>
         <main
           style={{
-            background: `${props.location.state.background}`,
+            background: `${backgroundColor}`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
           }}
         >
           <BoardNav background={"rgba(0,0,0,.32)"} />
-          <h1 style={{ margin: "0", color: "white" }}>
-            {props.location.state.title}
-          </h1>
+          <h1 style={{ margin: "0", color: "white" }}>{name}</h1>
           <Board
-            data={data}
+            data={info}
             canAddLanes={true}
             editable={true}
             editLaneTitle={true}
@@ -213,12 +74,12 @@ const BoardPage = (props) => {
         </main>
         {dataIsReady && (
           <PostBoard
-            name={props.location.state.name}
-            background={props.location.state.background}
-            userID={props.location.state.id}
+            name={name}
+            background={backgroundColor}
+            userID={user.sub}
             data={data}
             method="PUT"
-            url={`http://localhost:5000/api/boards/${props.location.state.id}`}
+            url={`http://localhost:5000/api/boards/${id}`}
           />
         )}
       </>

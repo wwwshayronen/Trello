@@ -11,7 +11,7 @@ const PostBoard = (props) => {
       },
       body: JSON.stringify({
         name: props.name,
-        data: props.data,
+        boardData: props.data,
         userID: props.userID,
         background: props.background,
         date: new Date(),

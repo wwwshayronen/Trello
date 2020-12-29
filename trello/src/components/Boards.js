@@ -221,15 +221,36 @@ const Boards = () => {
             <a href="/boards"><Image src="https://d2k1ftgv7pobq7.cloudfront.net/meta/u/res/images/trello-header-logos/af7af6ed478d3460709d715d9b3f74a4/trello-logo-white.svg" alt="home_logo" width="130" height="60"></Image></a> */}
         <Headers>🕔 Recently Viewed</Headers>
         <Recently>
-          <Item>
-            <Link to="/board">Board 1</Link>
-          </Item>
-          <Item>Board 1</Item>
-          <Item>Board 1</Item>
-          <Item>Board 1</Item>
-          <Item>Board 1</Item>
-          <Item>Board 1</Item>
-          {/* TODO: FUNCTION for adding new board */}
+          {savedBoards.slice(0, 5).map((board) => {
+            return (
+              <>
+                {" "}
+                <Item key={board._id}>
+                  {" "}
+                  <Link
+                    style={{
+                      color: "white",
+                      textAlign: "left",
+                      fontSize: "1rem",
+                      fontWeight: "bold",
+                    }}
+                    to={{
+                      pathname: `/board/${board.name}`,
+                      state: {
+                        background: board.background,
+                        title: board.name,
+                        data: board.boardData,
+                        userID: board.userID,
+                        id: board._id,
+                      },
+                    }}
+                  >
+                    {board.name}
+                  </Link>
+                </Item>
+              </>
+            );
+          }, 1)}
         </Recently>
         <Headers>👤 Personal Boards</Headers>
 
@@ -241,6 +262,12 @@ const Boards = () => {
                 <Item key={board._id}>
                   {" "}
                   <Link
+                    style={{
+                      color: "white",
+                      textAlign: "left",
+                      fontSize: "1rem",
+                      fontWeight: "bold",
+                    }}
                     to={{
                       pathname: `/board/${board.name}`,
                       state: {
@@ -258,8 +285,11 @@ const Boards = () => {
               </>
             );
           })}
+          <br></br>
           <button
             style={{
+              position: "relative",
+              bottom: "10px",
               backgroundColor: "rgba(9,30,66,.06)",
               borderRadius: "2px",
               boxShadow: "none",
@@ -267,9 +297,8 @@ const Boards = () => {
               outline: "none",
               cursor: "pointer",
               marginTop: "1rem",
-              width: "189",
-              height: "80px",
-              padding: "5%",
+              width: "150px",
+              height: "100px",
             }}
             onClick={() => setVisible(true)}
           >
@@ -442,33 +471,34 @@ const Search = styled.input`
   box-shadow: none;
   padding-right: 54px;
   width: 180px;
-  height: 10px;
+  height: 80px;
   border-radius: 3px;
   opacity: 0.5;
 `;
 
 const Recently = styled.ul`
-  position: relative;
-  right: 10px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 4fr));
-  grid-auto-rows: 80px;
-  grid-gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
   list-style: none;
-  font-weight: bold;
+  margin: 0;
+  margin-left: 2rem;
+  padding: 0;
+  height: auto;
 `;
 
 const Item = styled.li`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #0079bf;
   color: #ffffff;
-  text-align: left;
   border-radius: 4px;
   cursor: pointer;
-  flex: 1 0 15%;
   margin: 5px;
-  padding: 5%;
-  width: 90%;
-  height: 80px;
+  padding: 0;
+  width: 150px;
+  height: 100px;
   :hover {
     opacity: 0.8;
   }
@@ -477,6 +507,9 @@ const Item = styled.li`
 const Headers = styled.h2`
   color: #172b4d;
   font-size: 1rem;
+  font-weight: bold;
+  margin-left: 1rem;
+  margin-top: 0.8rem;
 `;
 
 const ModalContainer = styled.div``;
@@ -499,12 +532,11 @@ const ModalInput = styled.input`
 
 const Button = styled.button`
   border-radius: 4px;
-  width: 50px;
-  height: 50px;
+  width: 150px;
+  height: 100px;
   border: none;
   margin-left: 5px;
   margin-top: 5px;
-  background-position: 50%;
   background-size: cover;
   cursor: pointer;
 `;

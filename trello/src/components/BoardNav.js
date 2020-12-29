@@ -63,20 +63,26 @@ const Nav = ({ background }) => {
           backgroundSize: "cover",
         }}
       >
-        <Box>
-          <Squares style={{ fontSize: "1.5rem", color: "white" }} />
-        </Box>{" "}
-        <Box>
-          <BoardIcon style={{ fontSize: "1.5rem", color: "white" }} />
-        </Box>
+        <Link to="/boards">
+          <Box>
+            <Squares style={{ fontSize: "1.5rem", color: "white" }} />
+          </Box>{" "}
+        </Link>
+        <Link to="/boards">
+          <Box>
+            <BoardIcon style={{ fontSize: "1.5rem", color: "white" }} />
+          </Box>
+        </Link>
         <Box>
           <SearchOutlined style={{ fontSize: "1.5rem", color: "white" }} />
         </Box>{" "}
         <Logo>
-          <Image
-            height="32px"
-            src="https://a.trellocdn.com/prgb/dist/images/header-logo-2x.01ef898811a879595cea.png"
-          />
+          <Link to="/boards">
+            <Image
+              height="32px"
+              src="https://a.trellocdn.com/prgb/dist/images/header-logo-2x.01ef898811a879595cea.png"
+            />{" "}
+          </Link>
         </Logo>
         <Box>
           <Plus style={{ fontSize: "1.5rem", color: "white" }} />
