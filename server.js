@@ -27,7 +27,12 @@ mongoose
 // use routes
 app.use("/api/boards", boards);
 
-app.use(express.static(path.join(__dirname, 'client/build')));
+if (process.env.NODE.ENV === "production") {
+  app.use(express.static('client/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/client/build/index.html'));
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 
