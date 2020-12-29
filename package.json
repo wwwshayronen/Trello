@@ -12,6 +12,9 @@
     "client": "cd trello && npm start",
     "dev": "concurrently -n 'server,client' -c 'red,green'  \"nodemon server.js\" \"npm run client\""
   },
+    "engines": {
+    "node": "12.x"
+  }
   "author": "",
   "license": "ISC",
   "dependencies": {
