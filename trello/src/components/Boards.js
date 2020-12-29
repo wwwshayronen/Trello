@@ -172,7 +172,7 @@ const Boards = () => {
   useEffect(() => {
     const fetchBoards = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/boards/${user.sub}`);
+        const res = await fetch(`/api/boards/${user.sub}`);
         const json = await res.json();
         console.log(json);
         setSavedBoards(json);
@@ -193,7 +193,7 @@ const Boards = () => {
           name={boardTitle}
           userID={user.sub}
           method="POST"
-          url="http://localhost:5000/api/boards"
+          url="/api/boards"
           data={DUMMY_DATA}
         />
         <Redirect

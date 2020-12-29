@@ -13,13 +13,10 @@ const BoardPage = (props) => {
   // const [info, setInfo] = useState()
   const { user, isAuthenticated, logout, isLoading } = useAuth0();
 
-
   useEffect(() => {
     const fetchBoards = async () => {
       try {
-        const res = await fetch(
-          `http://localhost:5000/api/boards/v2/${props.location.state.id}`
-        );
+        const res = await fetch(`/api/boards/v2/${props.location.state.id}`);
         const json = await res.json();
         console.log(json);
         setSavedBoard(json);
@@ -79,7 +76,7 @@ const BoardPage = (props) => {
             userID={user.sub}
             data={data}
             method="PUT"
-            url={`http://localhost:5000/api/boards/${id}`}
+            url={`/api/boards/${id}`}
           />
         )}
       </>
