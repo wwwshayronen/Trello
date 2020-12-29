@@ -21,7 +21,7 @@ const Nav = () => {
         </SignUp>
         <LogIn onClick={() => loginWithRedirect()}>
           <Link
-            component={LogIn}
+            onClick={() => loginWithRedirect()}
             style={{
               color: "white",
               border: "none",
@@ -59,7 +59,7 @@ const Image = styled.img`
 
 const LogIn = styled.a`
   position: relative;
-  top: 5px;
+  top: 15px;
   display: block;
   padding: 0.25rem 0.5rem;
   font-size: 1.09375rem;

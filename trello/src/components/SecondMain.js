@@ -1,7 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const SecondMain = () => {
+  const { loginWithRedirect } = useAuth0()
+
   return (
     <Container>
       <Header>
@@ -12,7 +15,7 @@ const SecondMain = () => {
         your projects in a fun, flexible, and rewarding way.
       </Paragragh>
       <Image src="https://d2k1ftgv7pobq7.cloudfront.net/meta/p/res/images/308998dcb3ed5ab3d01217a4d24ffa03/hero-a.svg"></Image>
-      <Button style={{marginTop: "2rem"}}>Sign Up - Its Free!</Button>
+      <Button style={{marginTop: "2rem"}} onClick={() => loginWithRedirect()}>Sign Up - Its Free!</Button>
     </Container>
   );
 };
@@ -32,9 +35,9 @@ const Container = styled.div`
 
 const Header = styled.h1`
   display: block;
-  font-size: 1.7rem;
+  font-size: 1.2rem;
   margin-bottom: 0.5rem;
-
+  color: white;
   @media (min-width: 993px) {
     position: relative;
     font-size: 2.5rem;
@@ -73,7 +76,7 @@ const Button = styled.button`
   padding: 10px 24px;
   font-size: 20px;
   letter-spacing: 1.3px;
-
+  font-weight: bold;
   :hover {
     background: #4b9e3b;
   }

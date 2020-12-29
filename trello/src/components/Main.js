@@ -9,7 +9,7 @@ const Main = () => {
     return (
     <Container>
       <BigText onClick={() => loginWithRedirect()}>Log in to Trello</BigText>
-        <p><SecText href="#">or create an account</SecText></p>
+        <p><SecText onClick={() => loginWithRedirect()}>or create an account</SecText></p>
          <Btn onClick={() => loginWithRedirect()}><Image src="https://d2k1ftgv7pobq7.cloudfront.net/meta/p/res/images/8215f6659adc202403198fef903a447e/sign-in-with-google.svg" alt="google-logo"></Image>Log in with google</Btn>
            <ThirText onClick={() => loginWithRedirect()}>Log in with email and password</ThirText>
     </Container>
@@ -24,7 +24,7 @@ const Container = styled.div`
 text-align: center;
 height: 50vh;
 width: 100vw;
-
+margin-top: 2rem;
  `
 
 const BigText = styled.h1`
@@ -42,6 +42,7 @@ const SecText = styled.a`
  font-weight: 550;
  color: white;
  text-decoration: none;
+ margin-top: 1rem;
 `
 
 const ThirText = styled.a`
