@@ -1,0 +1,13 @@
+.ant-modal-header {
+  padding: 0 !important;
+}
+
+.ant-btn-primary {
+    background-color: #f4f5f7 !important;
+    color: #022586 !important;
+    outline: none;
+}
+
+.ant-modal-content {
+  background: transparent !important;
+}
