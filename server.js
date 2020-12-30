@@ -3,11 +3,8 @@ const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-<<<<<<< HEAD
 const path = require("path");
-=======
 const path = require("path")
->>>>>>> d792cfe (fixing ridirect to board bug)
 require("dotenv").config();
 
 // enable all cors requests
