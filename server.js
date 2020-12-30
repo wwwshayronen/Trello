@@ -3,7 +3,11 @@ const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+<<<<<<< HEAD
 const path = require("path");
+=======
+const path = require("path")
+>>>>>>> d792cfe (fixing ridirect to board bug)
 require("dotenv").config();
 
 // enable all cors requests
@@ -17,7 +21,7 @@ app.use(bodyParser.json());
 // connect to mongodb
 mongoose
   .connect(
-      "mongodb+srv://shay:KAngejFqBzQOFXeP@monez-cluster.dvbt7.mongodb.net/trello-db?retryWrites=true&w=majority",
+    process.env.DB_URI,
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => console.log("MongoDB connected"))

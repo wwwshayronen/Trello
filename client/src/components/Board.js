@@ -16,16 +16,18 @@ const BoardPage = (props) => {
   useEffect(() => {
     const fetchBoards = async () => {
       try {
-        const res = await fetch(`/api/boards/v2/${props.location.state.id}`);
-        const json = await res.json();
-        console.log(json);
-        setSavedBoard(json);
+        if (props.location.state.id) {
+          const res = await fetch(`/api/boards/v2/${props.location.state.id}`);
+          const json = await res.json();
+          console.log(json);
+          setSavedBoard(json);
+        }
       } catch (error) {
         console.log(error);
       }
     };
     fetchBoards();
-  }, [props]);
+  }, [props.location.state.id]);
   console.log("saved boards:", savedBoard);
 
   const handleDataChange = (newData) => {
@@ -39,11 +41,11 @@ const BoardPage = (props) => {
   console.log(props.location.state.background);
 
   const info =
-    (savedBoard && savedBoard[0].boardData[0]) || props.location.state.data[0];
+    (savedBoard && savedBoard.boardData[0]) || props.location.state.data[0];
   const backgroundColor =
-    (savedBoard && savedBoard[0].background) || props.location.state.background;
-  const name = (savedBoard && savedBoard[0].name) || props.location.state.title;
-  const id = (savedBoard && savedBoard[0]._id) || props.location.state.id;
+    (savedBoard && savedBoard.background) || props.location.state.background;
+  const name = (savedBoard && savedBoard.name) || props.location.state.title;
+  const id = (savedBoard && savedBoard._id) || props.location.state.id;
 
   console.log(info);
 
@@ -59,6 +61,7 @@ const BoardPage = (props) => {
         >
           <BoardNav background={"rgba(0,0,0,.32)"} />
           <h1 style={{ margin: "0", color: "white" }}>{name}</h1>
+
           <Board
             data={info}
             canAddLanes={true}
