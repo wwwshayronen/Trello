@@ -15,7 +15,7 @@ import data from "./data.json";
 
 const Boards = () => {
   const [savedBoards, setSavedBoards] = useState([]);
-  const [boardTitle, setBoardTitle] = useState("");
+  const [boardTitle, setBoardTitle] = useState("title");
   const [boardBackGround, setBoardBackGround] = useState("rgb(210, 144, 52)");
   const [visible, setVisible] = useState(false);
   const { user, isAuthenticated, isLoading } = useAuth0();
