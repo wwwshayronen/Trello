@@ -177,8 +177,7 @@ const Boards = () => {
                   value={boardTitle}
                   onChange={(e) => setBoardTitle(e.target.value)}
                   placeholder="Add board title"
-                  required
-                />
+                  required />
                 <div style={{ color: "white", marginTop: "0.1rem" }}>
                   {user.nickname}
                 </div>
