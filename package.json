@@ -8,7 +8,7 @@
     "build": "npm run build",
     "install-client": "cd client && npm install",
     "heroku-postbuild": "cd client && npm install && npm run build",
-    "start": "node server.js",
+    "start": "node server",
     "client": "cd trello && npm start",
     "dev": "concurrently -n 'server,client' -c 'red,green'  \"nodemon server.js\" \"npm run client\""
   },
