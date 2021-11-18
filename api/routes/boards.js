@@ -13,7 +13,10 @@ router.get("/:userID", (req, res) => {
     const id = req.params.userID;
     Board.find({ userID: id })
       .sort({ date: -1 })
-      .then((board) => res.json(board));
+      .then((board) => {
+        console.log("boards: ", board)
+        return res.json(board)
+      });
   } catch (error) {
     res.send({ message: error });
     console.log("Error with get board by id:", error);

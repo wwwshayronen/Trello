@@ -4,12 +4,12 @@
   "description": "tello",
   "main": "server.js",
   "scripts": {
-    "start": "node server",
+    "start": "node server.js",
     "server": "nodemon server",
     "client": "npm run start --prefix mappinapp",
     "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
   },
-    "engines": {
+  "engines": {
     "node": "14.x"
   },
   "author": "",

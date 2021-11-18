@@ -7,8 +7,8 @@ import "antd/dist/antd.css"
 
 ReactDOM.render(
   <Auth0Provider
-    domain="dev-4yd2ovr5.auth0.com"
-    clientId="64GHOyDd5iGEu7XYFbjZNPpfhics1TJ3"
+    domain={process.env.REACT_APP_DOMAIN}
+    clientId={process.env.REACT_APP_CLIENT_ID}
     redirectUri={window.location.origin}
   >
     <App />
