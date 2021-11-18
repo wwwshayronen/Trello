@@ -111,9 +111,7 @@ const Boards = () => {
             return (
               <>
                 {" "}
-                <Item key={board._id}>
-                  {" "}
-                  <Link
+                 <Link
                     style={{
                       color: "white",
                       textAlign: "left",
@@ -131,6 +129,9 @@ const Boards = () => {
                       },
                     }}
                   >
+                <Item key={board._id}>
+                  {" "}
+                 
                     {board.name}
                   </Link>
                 </Item>
