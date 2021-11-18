@@ -128,7 +128,6 @@ const Boards = () => {
                 >
                   <Item key={board._id}> {board.name}</Item>{" "}
                 </Link>
-                </Item>
               </>
             );
           })}
