@@ -77,29 +77,26 @@ const Boards = () => {
             return (
               <>
                 {" "}
-                <Item key={board._id}>
-                  {" "}
-                  <Link
-                    style={{
-                      color: "white",
-                      textAlign: "left",
-                      fontSize: "1rem",
-                      fontWeight: "bold",
-                    }}
-                    to={{
-                      pathname: `/board/${board.name}`,
-                      state: {
-                        background: board.background,
-                        title: board.name,
-                        data: board.boardData,
-                        userID: board.userID,
-                        id: board._id,
-                      },
-                    }}
-                  >
-                    {board.name}
-                  </Link>
-                </Item>
+                <Link
+                  style={{
+                    color: "white",
+                    textAlign: "left",
+                    fontSize: "1rem",
+                    fontWeight: "bold",
+                  }}
+                  to={{
+                    pathname: `/board/${board.name}`,
+                    state: {
+                      background: board.background,
+                      title: board.name,
+                      data: board.boardData,
+                      userID: board.userID,
+                      id: board._id,
+                    },
+                  }}
+                >
+                  <Item key={board._id}> {board.name}</Item>{" "}
+                </Link>
               </>
             );
           }, 1)}
