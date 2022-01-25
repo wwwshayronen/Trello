@@ -9,7 +9,8 @@ The main goal is to build readble, maintainable, testable, and high-quality Full
 
 ## DEMO
 
-https://trello-clone-mern-stack.herokuapp.com/
+https://trello-reverse-eng.herokuapp.com/
+(it's a free tier hosting on heroku, so it will take few seconds to load)
 
 ### Front-end
 - **React.js**
