@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@ant-design/icons": "^4.3.0",
+    "@ant-design/icons": "^4.7.0",
     "@auth0/auth0-react": "^1.2.0",
     "antd": "^4.9.2",
     "react": "^16.9.0",
